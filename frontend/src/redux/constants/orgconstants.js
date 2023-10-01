@@ -1,0 +1,16 @@
+export const ALL_ORGS_REQUEST = "ALL_ORGS_REQUEST";
+export const ALL_ORGS_SUCCESS = "ALL_ORGS_SUCCESS";
+export const ALL_ORGS_FAIL = "ALL_ORGS_FAIL";
+
+export const CLEAR_ERRORS = "CLEAR_ERRORS";
+
+export const DELETE_ORG_REQUEST = "DELETE_ORG_REQUEST";
+export const DELETE_ORG_SUCCESS = "DELETE_ORG_SUCCESS";
+export const DELETE_ORG_FAIL = "DELETE_ORG_FAIL";
+export const DELETE_ORG_RESET = "DELETE_ORG_RESET";
+
+export const NEW_ORG_REQUEST = "NEW_ORG_REQUEST";
+export const NEW_ORG_SUCCESS = "NEW_ORG_SUCCESS";
+export const NEW_ORG_FAIL = "NEW_ORG_FAIL";
+export const NEW_ORG_RESET = "NEW_ORG_RESET";
+

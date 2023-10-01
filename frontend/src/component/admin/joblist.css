@@ -1,0 +1,61 @@
+.JobListContainer {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: rgb(68, 185, 175);
+    border-left: 1px solid rgb(15, 12, 12);
+    display: flex;
+    flex-direction: column;
+    
+  }
+  
+  #JobListHeading {
+    font: 400 2rem "Roboto";
+    padding: 0.5vmax;
+    box-sizing: border-box;
+    color: rgb(10, 37, 87);
+    transition: all 0.5s;
+    margin: 2rem;
+    text-align: center;
+  }
+  
+  .JobListTable {
+    background-color: rgb(170, 170, 170);
+    border:coral !important;
+    border-width: 7px;
+    border-style: solid;
+    margin: 20px;
+    
+  }
+  
+  .JobListTable div {
+    font: 300 1.5vmax "Roboto";
+    color: rgb(0, 0, 0);
+    border:rgb(15, 12, 12) !important;
+   
+  }
+  
+  .JobListTable a,
+  .JobListTable button {
+    color: rgb(222, 46, 46);
+    transition: all 0.5s;
+  }
+  
+  .JobListTable a:hover {
+    color: tomato;
+  }
+  
+  .JobListTable button:hover {
+    color: rgb(236, 30, 30);
+  }
+  
+  .MuiDataGrid-columnHeader div {
+    color: rgb(0, 0, 0);
+    font-size: large;
+    align-self: center;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .JobListTable div {
+      font: 500 4vw "Roboto";
+    }
+  }

@@ -1,0 +1,39 @@
+{
+  "name": "jobhunt",
+  "version": "1.0.0",
+  "main": "backend/server.js",
+  "scripts": {
+    "test": "hh",
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cloudinary": "^1.40.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "datauri": "^4.1.0",
+    "dotenv": "^16.3.1",
+    "downloadjs": "^1.4.7",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "github": "^14.0.0",
+    "jsonwebtoken": "^9.0.1",
+    "method-override": "^3.0.0",
+    "mongodb": "^5.7.0",
+    "mongoose": "^7.3.2",
+    "multer": "^1.4.4",
+    "multer-gridfs-storage": "^5.0.2",
+    "node-sass": "^9.0.0",
+    "nodemailer": "^6.9.3",
+    "nodemon": "^3.0.1",
+    "powershell": "^2.3.2",
+    "react-bootstrap": "^2.8.0",
+    "react-dropzone": "^14.2.3",
+    "validator": "^13.9.0"
+  },
+  "description": ""
+}

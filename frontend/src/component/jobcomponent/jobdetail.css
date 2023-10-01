@@ -1,0 +1,61 @@
+.CarouselImage{
+    height: 60vh;
+    padding: 0.5%;
+    border: 8px;
+    border-style: double;
+    border-color:black;
+    box-shadow: inset;
+    
+}
+.carousel{
+    display: flex;
+    padding: 20px 10px;
+}
+.mainDiv{
+    background-color: #a4a7e0;
+}
+.item_jobdetail{
+    flex: 1;
+    flex-basis: 0;
+}
+.otherdetailblock{
+    margin-left: 40px;
+    margin-bottom: 40px;
+    
+}
+.descr{
+    font-size: large;
+    font-weight: 600;
+    margin: 50px 20px;
+}
+.job_title_heading{
+    font-size: xx-large;
+    font-style: bold;
+    font-weight: 900;
+    letter-spacing: 0.2 vmax;
+}
+.jobtitleblock {
+    margin: 20px 20px 50px 20px;
+    padding: 30px 0px;
+    text-align: center;
+    background: rgb(150, 129, 164);
+    background: linear-gradient(90deg, rgb(160, 98, 201) 0%, rgba(179,129,173,1) 50%, rgb(181, 163, 178) 99%);
+    border-radius: 40px / 50px;
+    border-width: 1px;
+    border-style:solid;
+    border-color: black;
+}
+
+.applybutton{
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+    padding: 0.2% 2%;
+    color: antiquewhite;
+    background-color: rgb(62, 62, 199);
+}
+
+
+    
+  
+
