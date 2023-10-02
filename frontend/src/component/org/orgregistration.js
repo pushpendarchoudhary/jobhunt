@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import '../admin/newjob.js';
+import '../admin/newjob.css';
 import { useSelector, useDispatch } from "react-redux";
 import { clearErrors, createOrgRequest } from "../../redux/actions/orgactions";
 import { useAlert } from "react-alert";
@@ -197,7 +197,7 @@ import Loader from "../layout/loader/loader.js";
             </div>
 
             <div>
-              <registrationnoIcon />
+              
 
               <input
                 type="text"

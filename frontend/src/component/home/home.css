@@ -15,12 +15,11 @@
   align-items: stretch;
   height: 100vh;
   padding: 2vmax;
-  column-gap: 2vmax;
+  /* column-gap: 2vmax; */
   background-color: rgb(255, 255, 255);
-  border-radius: 0% 60% 0% 60%/ 0% 35% 0% 30%;
   border: 10px solid blue;
 
-  padding: 10% 5%;
+  padding: 5% 5%;
   
 }
 
@@ -30,8 +29,10 @@
   flex-direction: column;
   background: linear-gradient(45deg, rgba(133,74,109,1) 0%, rgba(109,65,191,1) 22%, rgba(51,43,106,1) 64%, rgba(32,40,79,1) 76%, rgba(89,85,101,1) 100%);
   flex:1  ;
-  flex-basis: 0; 
-  border-radius: 5% 15%/ 5% 15%;
+  flex-basis: 0;
+  margin:3%;
+  padding: 4%;
+  /* border-radius: 15%; */
   overflow: hidden;
   border-style:solid;
   border-width: 4px;

@@ -30,8 +30,12 @@ const JobList = () => {
   const userId = user._id;
   const deleteJobHandler = (id) => {
     dispatch(deleteJob(id));
-  };
+  }; 
   const navigate = useNavigate();
+  const handleViewApplications = (id)=> {
+    navigate(`/org/resume/${id}`)
+  }
+  
 
   useEffect(() => {
     if (error) {
@@ -76,7 +80,16 @@ const JobList = () => {
       minWidth: 100,
       flex: 0.5,
     },
-
+    {
+      field: "ViewApplicants",
+      flex: 0.3,
+      headerName: "View Applicants",
+      minWidth:150,
+      sortable: false,
+      renderCell: (params) => (
+        <Button onClick={()=> handleViewApplications(params.getValue(params.id, "id"))}>Applications</Button>
+      ),
+    },
     {
       field: "actions",
       flex: 0.3,

@@ -3,7 +3,7 @@ import './navbar.css';
 import { useSelector } from "react-redux";
 
 const Navbar =()=>{
-    const {isAuthenticated} = useSelector((state)=>state.user);
+    const {isAuthenticated, user} = useSelector((state)=>state.user);
     
       const [isMenuActive, setMenuActive] = useState(false);
     
@@ -26,7 +26,7 @@ const Navbar =()=>{
         <li className="nav-item"><a href="#">About</a></li>
         <li className="nav-item"><a href="http://localhost:3000/jobss">AllJobs</a></li>
         {isAuthenticated? 
-            <li></li> : 
+            <li className="nav-item"></li> : 
             <li className="nav-item"><a href="http://localhost:3000/login">Login/Signup</a></li>
         }
         

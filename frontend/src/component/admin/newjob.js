@@ -44,7 +44,7 @@ const NewJob = () => {
     if (success) {
       alert.success("Job Created Successfully");
       navigate("/admin/dashboard");
-      dispatch({ type: NEW_JOB_RESET });
+     dispatch({ type: NEW_JOB_RESET }); 
     }
   }, [dispatch, alert, error, navigate, success]);
 

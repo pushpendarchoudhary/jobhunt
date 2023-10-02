@@ -29,6 +29,7 @@ import OrganizationList from './component/admin/organizationlist';
 import OrgRegistration from './component/org/orgregistration.js';
 import Dashboard2 from './component/admin/Dashboard2';
 import JobApply from './component/jobcomponent/JobApply';
+import ApplicantsList from './component/org/applicantslist';
 
 
 
@@ -76,7 +77,11 @@ function App() {
             <Route exact path='/org/jobs' element={loading?<Loader/> :!isAuthenticated?(<Navigate to = '/login'/>):( user.role !=="organization")?(<Navigate to = '/login'/>) :<JobList/>}/>
             <Route exact path='/org/job/:id' element={loading?<Loader/> :!isAuthenticated?(<Navigate to = '/login'/>):( user.role !=="organization")?(<Navigate to = '/login'/>) :<UpdateJob/>}/>
             <Route exact path='/job/apply/:id' element={loading? <Loader/> : !isAuthenticated?(<Navigate to = '/login'/>):(user.role !=="user")?(<Navigate to = '/login'/>) : <JobApply/>}/>
+
+            <Route exact path='/org/resume/:id' element={loading?<Loader/> :!isAuthenticated?(<Navigate to = '/login'/>):( user.role !=="organization")?(<Navigate to = '/login'/>) :<ApplicantsList/>}/>
             </Routes>
+
+
         
             <Footer />
         </Router>

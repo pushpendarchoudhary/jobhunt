@@ -13,7 +13,7 @@ import './useroption.css';
 const UserOptions = ({user})=>{
 
     const[Open, setOpen] = useState(false);
-    const[hello, setHello] = useState(true);
+    
     const alert = useAlert();
     const dispatch = useDispatch();
 
@@ -38,45 +38,22 @@ const UserOptions = ({user})=>{
       }
       const navigate = useNavigate();
 
-      function Dashboard(){
-
-        if(hello===true){
+      function Dashboard(){ 
           navigate("/admin/dashboard");
-          setHello(false);
-        }else{
-        navigate("/");
-        setHello(true);
-      }
       }
 
       function Dashboard2(){
-
-        if(hello===true){
           navigate("/org/dashboard");
-          setHello(false);
-        }else{
-        navigate("/");
-        setHello(true);
-      }
       }
 
       function account(){
-        if(hello===true){
           navigate("/account");
-          setHello(false);
-        }else{
-        navigate("/");
-        setHello(true);
-      }
       }
       
-
-
       function logoutUser(){
         dispatch(logout());
         alert.success("Logout Successfully");
       }
-
 
       return(
         <Fragment>

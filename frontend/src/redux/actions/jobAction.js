@@ -5,7 +5,9 @@ import {ALL_JOBS_REQUEST, ALL_JOBS_SUCCESS, ALL_JOBS_FAIL,
         DELETE_JOB_FAIL,DELETE_JOB_REQUEST,DELETE_JOB_SUCCESS,
         NEW_JOB_FAIL, NEW_JOB_REQUEST,  NEW_JOB_SUCCESS,
         UPDATE_JOB_FAIL, UPDATE_JOB_REQUEST,  UPDATE_JOB_SUCCESS,
-        UPLOAD_RESUME_FAIL, UPLOAD_RESUME_REQUEST, UPLOAD_RESUME_SUCCESS,
+        UPLOAD_RESUME_FAIL, UPLOAD_RESUME_REQUEST, UPLOAD_RESUME_SUCCESS, 
+        ALL_RESUME_REQUEST, ALL_RESUME_SUCCESS, ALL_RESUME_FAIL,
+        DELETE_RESUME_FAIL, DELETE_RESUME_REQUEST, DELETE_RESUME_SUCCESS
         } from '../constants/jobconstant';
 
 
@@ -168,6 +170,44 @@ export const getAdminJobs = () => async (dispatch) => {
       });
     }
   };
+
+  export const getResumes = (id)=> async (dispatch) => {
+    try{
+        dispatch({
+            type: ALL_RESUME_REQUEST,
+        });
+
+        const { data }= await axios.get(`/api/v1/resumes/${id}`);
+        
+        dispatch({
+            type: ALL_RESUME_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: ALL_RESUME_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
+
+export const deleteResume = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_RESUME_REQUEST });
+
+    const { data } = await axios.delete(`/api/v1/resumes/${id}`);
+
+    dispatch({
+      type: DELETE_RESUME_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_RESUME_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 //Clearing Errors
 export const clearErrors = ()=> async (dispatch) => {
     dispatch({type : CLEAR_ERROR});

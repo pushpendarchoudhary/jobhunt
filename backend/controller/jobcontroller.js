@@ -1,4 +1,5 @@
 const { json } = require("body-parser");
+const mongoose = require("mongoose");
 const Jobs = require("../models/jobmodel");
 const Resume = require("../models/resume");
 const Errorhandler = require("../utils/errorhandler");
@@ -7,6 +8,7 @@ const ApiFeatures = require("../utils/apifeatures");
 const cloudinary = require("cloudinary");
 const getDataUri = require("../utils/dataUri");
 const {singleUpload} = require("../middleware/multer");
+const { ObjectId } = require("mongodb");
 
 // creating jobs
 exports.createJob = catchAsyncErrors(async (req,res,next)=>{ 
@@ -101,8 +103,8 @@ exports.deleteJobs = catchAsyncErrors(async(req,res,next)=>{
     // deleting images from cloudinary
 
     for(let i=0; i<jobs.image.length; i++){
-         await cloudinary.v2.destroy(
-            product.image[i].public_id
+         await cloudinary.v2.uploader.destroy(
+            jobs.image[i].public_id
         );
     }
     await Jobs.findByIdAndDelete(req.params.id,req.body)
@@ -135,3 +137,36 @@ exports.UploadResume = [singleUpload, catchAsyncErrors(async(req, res, next)=>{
   })
 })
 ]
+
+exports.getallresume = catchAsyncErrors(async (req, res, next) => {
+ // Assuming the job ID is sent as a parameter
+  const id = req.params;
+  const validId = new ObjectId(id);
+ 
+  const resume = await Resume.find({appliedFor: validId});
+
+  res.status(200).json({
+    success: true,
+    resume,
+  });
+});
+
+exports.deleteResume = catchAsyncErrors(async(req,res,next)=>{
+  const resume= await Resume.findById(req.params.id);
+  if(!resume){
+      return next(new Errorhandler("Resume not found",404));
+   }
+
+  // deleting images from cloudinary
+  
+  await cloudinary.v2.uploader.destroy(
+       resume.pdf.public_id
+   );
+
+  await Resume.findByIdAndDelete(req.params.id, req.body)
+  res.status(200).json({
+      success:true,
+      message: "resume deleted successful"
+  })
+});
+

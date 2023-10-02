@@ -1,0 +1,67 @@
+.jobApplyForm {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .jobApplyForm div {
+    margin-bottom: 15px;
+  }
+  
+  .jobApplyForm label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .jobApplyForm input, .jobApplyForm select, .jobApplyForm textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .jobApplyForm button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .jobApplyForm button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Add some additional styles for the file input */
+  .jobApplyForm input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+  }
+  
+  .jobApplyForm button[type="submit"] {
+    margin-top: 15px;
+  }
+  
+  /* Media query for smaller screens */
+  @media screen and (max-width: 600px) {
+    .jobApplyForm input, .jobApplyForm select, .jobApplyForm textarea {
+      font-size: 14px;
+    }
+  
+    .jobApplyForm button {
+      font-size: 14px;
+    }
+  }
+  

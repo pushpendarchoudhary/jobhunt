@@ -2,7 +2,7 @@ import { legacy_createStore as createStore, combineReducers, applyMiddleware } f
 
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { jobDetailsReducer, jobReducer, jobsReducer, newJobReducer, resumeReducer } from '../reducers/jobreducer';
+import { deleteresume, jobDetailsReducer, jobReducer, jobsReducer, newJobReducer, resumeReducer } from '../reducers/jobreducer';
 import { profileReducer, userReducer,forgotPasswordReducer, allUsersReducer, userDetailsReducer } from "../reducers/userreducer";
 import { AllOrgsReducer, OrgReducer, newOrgReducer } from "../reducers/orgreducers";
 
@@ -20,7 +20,7 @@ const reducer = combineReducers({
     orgdelete: OrgReducer,
     newOrg: newOrgReducer,
     resumeList : resumeReducer,
-
+    resumeActions: deleteresume,
 
 });
 

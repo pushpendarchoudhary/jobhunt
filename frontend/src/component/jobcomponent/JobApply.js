@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
+import './jobapply.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import {uploadResume, clearErrors} from '../../redux/actions/jobAction';
 import { UPLOAD_RESUME_RESET } from '../../redux/constants/jobconstant';
@@ -41,7 +42,7 @@ const UploadResume = () => {
       navigate(`/job/${id}`);
       dispatch({ type: UPLOAD_RESUME_RESET });
     }
-  }, [dispatch, alert, error, navigate, success]);
+  }, [dispatch, alert, error,id, navigate, success]);
 
 
   const handleSubmit = async (event) => {
@@ -61,7 +62,7 @@ const UploadResume = () => {
 
   return (
 
-    <form onSubmit={handleSubmit}>
+    <form className="jobApplyForm" onSubmit={handleSubmit}>
       <div>
         <label htmlFor="name">Name:</label>
         <input
