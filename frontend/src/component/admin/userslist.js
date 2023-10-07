@@ -11,13 +11,14 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import SideBar from "./Sidebar";
 import { getAllUsers, clearErrors, deleteUser } from "../../redux/actions/userAction";
 import { DELETE_USER_RESET } from "../../redux/constants/userconstant";
+import Loader from "../layout/loader/loader";
 
 const UsersList = () => {
   const dispatch = useDispatch();
 
   const alert = useAlert();
 
-  const { error, users } = useSelector((state) => state.allUsers);
+  const { loading, error, users } = useSelector((state) => state.allUsers);
 
   const {
     error: deleteError,
@@ -121,24 +122,26 @@ const UsersList = () => {
 
   return (
     <Fragment>
+      {loading? <Loader/>:<div>
       <MetaData title={`ALL USERS - Admin`} />
 
-      <div className="dashboard">
-        <SideBar />
-        <div className="JobListContainer">
-          <h1 id="JobListHeading">ALL USERS</h1>
+<div className="dashboard">
+  <SideBar />
+  <div className="JobListContainer">
+    <h1 id="JobListHeading">ALL USERS</h1>
 
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            pageSize={10}
-            rowsPerPageOptions={[10]}
-            disableSelectionOnClick
-            className="JobListTable"
-            autoHeight
-          />
-        </div>
-      </div>
+    <DataGrid
+      rows={rows}
+      columns={columns}
+      pageSize={10}
+      rowsPerPageOptions={[10]}
+      disableSelectionOnClick
+      className="JobListTable"
+      autoHeight
+    />
+  </div>
+</div></div>}
+      
     </Fragment>
   );
 };

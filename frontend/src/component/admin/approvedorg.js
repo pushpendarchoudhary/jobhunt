@@ -6,16 +6,14 @@ import {useNavigate} from "react-router-dom";
 import { useAlert } from "react-alert";
 import { Button } from "@material-ui/core";
 import MetaData from "../layout/MetaData";
-import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import SideBar from "./Sidebar";
 import { getAllOrganizations, clearErrors , deleteOrganization } from "../../redux/actions/orgactions";
-import { updateUser } from "../../redux/actions/userAction";
 import { UPDATE_USER_RESET } from "../../redux/constants/userconstant";
 import { DELETE_ORG_RESET } from "../../redux/constants/orgconstants";
 import Loader from "../layout/loader/loader";
 
-const OrgsList = () => {
+const ApprovedOrgsList = () => {
   const dispatch = useDispatch();
 
   const alert = useAlert();
@@ -28,7 +26,8 @@ const OrgsList = () => {
     error: updateError,
     isUpdated,
   } = useSelector((state) => state.profile);
- let role= "organzation"; 
+
+  let role = "organization";
 
   const {
     error: deleteError,
@@ -59,12 +58,6 @@ const OrgsList = () => {
     }
   }, [dispatch, alert, error, navigate, isUpdated, updateError]);
 
-  const approveOrgHandler = (orgid) => {
-    
-    const myForm = new FormData();
-    myForm.set("role", role)
-    dispatch(updateUser(orgid, myForm));
-};
 
   useEffect(() => {
     if (error) {
@@ -126,14 +119,9 @@ const OrgsList = () => {
       type: "number",
       sortable: false,
       renderCell: (params) => {
-
-        const orgId = params.row.requestedBy;
         return (
           <Fragment>
             {loading ? <Loader/> : <div>
-              <Button onClick={()=> approveOrgHandler(orgId)}><CheckIcon/></Button>
-            
-
             <Button 
               onClick={() =>
                 deleteOrgHandler(params.row.id)
@@ -141,8 +129,6 @@ const OrgsList = () => {
             >
               <ClearIcon />
             </Button></div>}
-
-            
           </Fragment>
         );
       },
@@ -155,7 +141,7 @@ const OrgsList = () => {
     organizations.forEach((item) => {
       const user = users.find(user => user._id === item.requestedBy)
 
-        if (user && user.role === "user") {
+        if (user && user.role === "organization") {
           rows.push({
         id: item._id,
         industry: item.industry,
@@ -173,7 +159,7 @@ const OrgsList = () => {
       <div className="dashboard">
         <SideBar />
         <div className="JobListContainer">
-          <h1 id="JobListHeading"> Orgs Requested</h1>
+          <h1 id="JobListHeading">Approved Orgs</h1>
           
 
           <DataGrid
@@ -191,4 +177,4 @@ const OrgsList = () => {
   );
 };
 
-export default OrgsList;
+export default ApprovedOrgsList;

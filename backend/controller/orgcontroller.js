@@ -103,10 +103,12 @@ exports.deleteOrganization = catchAsyncErrors(async(req, res, next)=>{
     if(!orgs){
       return next(new Errorhandler("Organization does not exist with Id : " + req.params.id));
     }
-    const imageId = orgs.image.public_id;
-    await cloudinary.v2.uploader.destroy(imageId);
-    
+    for(let i = 0; i< orgs.image.length;i++){
+      await cloudinary.v2.uploader.destroy(orgs.image[i].public_id)
+    }
+
     await orgs.deleteOne();
+    
   
       res.status(200).json({
           success:true,

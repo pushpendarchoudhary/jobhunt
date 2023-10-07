@@ -78,9 +78,36 @@ exports.getJobDetails = catchAsyncErrors(async(req,res,next)=>{
 });
 //update jobs
 exports.updateJobs= catchAsyncErrors(async (req,res,next)=>{
-    let jobs= Jobs.findById(req.params.id);
+    let jobs= await Jobs.findById(req.params.id);
     if(!jobs){
        return next(new Errorhandler("job not found",404));
+    }
+    let image = [];
+    if (typeof req.body.image === "string"){
+      image.push(req.body.image);
+    }
+    else {
+      image = req.body.image;
+    }
+
+    
+
+    if(image !== undefined) {
+      for (let i=0; i< jobs.image.length; i++){
+        await cloudinary.v2.uploader.destroy(jobs.image[i].public_id);
+      }
+      let imageLinks = [];
+
+      for (let i=0; i< image.length; i++){
+        const result = await cloudinary.v2.uploader.upload(image[i], {
+          folder : "Job images",
+        });
+        imageLinks.push({
+          public_id: result.public_id,
+          url: result.secure_url,
+        })
+      }
+      req.body.image = imageLinks;
     }
     jobs = await Jobs.findByIdAndUpdate(req.params.id,req.body,{
        new:true,
@@ -93,6 +120,8 @@ exports.updateJobs= catchAsyncErrors(async (req,res,next)=>{
        jobs
     })
 });
+
+
 // delete job
 exports.deleteJobs = catchAsyncErrors(async(req,res,next)=>{
     const jobs= await Jobs.findById(req.params.id);
@@ -140,16 +169,24 @@ exports.UploadResume = [singleUpload, catchAsyncErrors(async(req, res, next)=>{
 
 exports.getallresume = catchAsyncErrors(async (req, res, next) => {
  // Assuming the job ID is sent as a parameter
+ const resume = await Resume.find();
+ res.status(200).json({
+   success: true,
+   resume
+ })
+});
+
+exports.getresume = catchAsyncErrors(async (req, res, next)=>{
   const id = req.params;
   const validId = new ObjectId(id);
- 
-  const resume = await Resume.find({appliedFor: validId});
 
+  const resume = await Resume.find({appliedFor: validId});
   res.status(200).json({
     success: true,
     resume,
   });
-});
+ 
+})
 
 exports.deleteResume = catchAsyncErrors(async(req,res,next)=>{
   const resume= await Resume.findById(req.params.id);

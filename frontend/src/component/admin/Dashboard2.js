@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { Fragment, useEffect, useState} from "react";
 import Sidebar2 from "./Sidebar2.js";
 import "./dashboard.css";
 import { Typography } from "@material-ui/core";
@@ -6,11 +6,12 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../layout/MetaData.js";
 import { getAdminJobs } from "../../redux/actions/jobAction.js";
+import Loader from "../layout/loader/loader.js";
 
 const Dashboard2 = () => {
   const dispatch = useDispatch();
 
-  const { jobs } = useSelector((state) => state.jobs);
+  const { loading, jobs } = useSelector((state) => state.jobs);
   const {user} = useSelector((state)=>state.user);
   const userId = user._id;
 
@@ -38,7 +39,8 @@ const Dashboard2 = () => {
 
 
   return (
-    <div className="dashboard">
+    <Fragment>
+      {loading ? <Loader/>: <div className="dashboard">
       <MetaData title="Dashboard - Admin Panel" />
       <Sidebar2 />
 
@@ -52,10 +54,6 @@ const Dashboard2 = () => {
               <p className="homa">{totaljobs}</p>
             </Link>
             
-            <Link to="/admin/users" className="links">
-              <p className="homa">Applicants</p>
-            </Link>
-            
             <Link to="/admin/orgs" className="links">
               <p className="homa">Approved</p>
             </Link>
@@ -63,7 +61,9 @@ const Dashboard2 = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div> }
+    </Fragment>
+    
   );
 };
 

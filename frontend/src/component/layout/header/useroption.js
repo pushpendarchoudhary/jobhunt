@@ -7,7 +7,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { logout } from "../../../redux/actions/userAction";
 import { useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import './useroption.css';
 
 const UserOptions = ({user})=>{

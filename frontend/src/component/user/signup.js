@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
  const SignUp = ()=>{
 
-    const {error,loading, isAuthenticated} = useSelector((state)=>state.user);
+    const {error,loading,success, isAuthenticated} = useSelector((state)=>state.user);
     const dispatch=useDispatch();
     const alert = useAlert();
     const [user, setUser] = useState({
@@ -20,44 +20,47 @@ import { useNavigate } from "react-router-dom";
         email:"",
         password:"",
         phone:"",
-
+        file:null,
     });
+
+    const [filepreview, setfilePreview]= useState(null);
+
+   const handleChange = (event)=> {
+    const {name, value} = event.target;
+    setUser({...user, [name]: value});
+   }
+   const registerDataChange = (e) => {
     
+        const reader = new FileReader();
 
-    const { name , email, password, phone} = user;
-    const [avatar, setavatar] = useState();
-    const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
-
+        reader.onload=()=>{
+            if(reader.readyState === 2 ){
+                setfilePreview(reader.result);
+                
+            }
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    const selectedFile = e.target.files[0];
+    if(selectedFile){
+        setUser({...user, file: selectedFile});
+        
+    }
+    
+}
     const registerSubmit = (e) => {
         e.preventDefault();
 
         const myForm = new FormData();
-        myForm.set("name", name);
-        myForm.set("email", email);
-        myForm.set("password", password);
-        myForm.set("phone", phone);
-        myForm.set("avatar", avatar);
+        myForm.append('name', user.name);
+        myForm.append('email', user.email);
+        myForm.append('password', user.password);
+        myForm.append('phone', user.phone);
+        myForm.append('file', user.file);
         dispatch(register(myForm));
         
     };
 
-    const registerDataChange = (e) => {
-        if(e.target.name=== "avatar") {
-            const reader = new FileReader();
-
-            reader.onload=()=>{
-                if(reader.readyState === 2 ){
-                    setAvatarPreview(reader.result);
-                    setavatar(reader.result);
-                }
-            };
-
-        reader.readAsDataURL(e.target.files[0]);
-
-        }else {
-            setUser({...user, [e.target.name]: e.target.value });
-        }
-    }
+    
 
     const navigate=useNavigate();
     useEffect(()=> {
@@ -65,11 +68,13 @@ import { useNavigate } from "react-router-dom";
             alert.error(error);
             dispatch(clearErrors());
         }
-
+        if(success) {
+            alert.success(" Registered successfully");
+        }
         if(isAuthenticated){
             navigate("/account");
         }
-    },[dispatch, alert, error, isAuthenticated, navigate]);
+    },[dispatch, alert, error, success, isAuthenticated, navigate]);
  
     return(
         <Fragment>
@@ -84,16 +89,16 @@ import { useNavigate } from "react-router-dom";
                 <div className="panel-body p-3">
                 <form className="signUpform "  encType="multipart/form-data" onSubmit={registerSubmit}>
                         <div className="signUpName input-field-div" >
-                            <FaceIcon /> <input className="inputF" type="text" placeholder="Name" required name="name" value={name} onChange={registerDataChange} />
+                            <FaceIcon /> <input className="inputF" type="text" placeholder="Name" required name="name" value={user.name} onChange={handleChange} />
                         </div>
 
                         <div className="input-field-div">
                         <MailOutlineIcon />
-                        <input className="inputF" type="email" placeholder="Email" required name="email" value={email} onChange={registerDataChange}/> 
+                        <input className="inputF" type="email" placeholder="Email" required name="email" value={user.email} onChange={handleChange}/> 
                         </div>
                         <div className="input-field-div">
                         <MailOutlineIcon />
-                        <input className="inputF" type="tel" placeholder="Phone No" required name="phone" value={phone} onChange={registerDataChange}/> 
+                        <input className="inputF" type="text" placeholder="Phone No" required name="phone" value={user.phone} onChange={handleChange}/> 
                         </div>
                         <div className="input-field-div">
                         <LockOpenIcon />
@@ -102,18 +107,19 @@ import { useNavigate } from "react-router-dom";
                                 placeholder="Password"
                                 required
                                 name="password"
-                                value={password}
-                                onChange={registerDataChange}
+                                value={user.password}
+                                onChange={handleChange}
                             />
                         </div>
                         <div className="registerImage " >
-                            <img src={avatarPreview} alt="Avatar Preview" />
+                            <img src={filepreview} alt="profilepic"></img>
                             <input
                                 className="btn"
                                 type="file"
-                                name="avatar"
+                                name="file"
                                 accept="image/*"
                                 onChange={registerDataChange}
+                                multiple={false}
                             />
                         </div>
                         <div className="loginbutton"><input className="btn btn-primary btn-lg btn-block mt-7" type="submit" value="Signup" /></div>

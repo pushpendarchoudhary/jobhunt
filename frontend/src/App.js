@@ -1,6 +1,6 @@
 import React ,{useEffect} from 'react';
 import './App.css'
-import { BrowserRouter as Router,Route,Routes,Navigate} from "react-router-dom";
+import { BrowserRouter as Router,Route,Routes, Navigate} from "react-router-dom";
 import Footer from "./component/layout/footer/footer";
 import Home from './component/home/home';
 import JobDetails from './component/jobcomponent/jobDetails.js';
@@ -30,6 +30,8 @@ import OrgRegistration from './component/org/orgregistration.js';
 import Dashboard2 from './component/admin/Dashboard2';
 import JobApply from './component/jobcomponent/JobApply';
 import ApplicantsList from './component/org/applicantslist';
+import ApprovedOrgsList from './component/admin/approvedorg';
+import NotFound from './component/layout/NotFound';
 
 
 
@@ -50,8 +52,9 @@ function App() {
   return (<Router>
             {isAuthenticated && <UserOptions user={user} />}
             <Navbar/>
-            <Routes>
+           
             
+           <Routes>
             <Route exact path='/' Component={Home} />
             <Route exact path='/job/:id' Component={JobDetails} />
             <Route exact path='/login' Component={ Login } />
@@ -72,6 +75,7 @@ function App() {
             <Route exact path='/admin/users' element={loading?<Loader/> :!isAuthenticated?(<Navigate to = '/login'/>):( user.role !=="admin")?(<Navigate to = '/login'/>) :<UsersList/>}/>
             <Route exact path='/admin/user/:id' element={loading?<Loader/> :!isAuthenticated?(<Navigate to = '/login'/>):( user.role !=="admin")?(<Navigate to = '/login'/>) :<UpdateUser/>}/>
             <Route exact path='/admin/orgs' element={loading?<Loader/> :!isAuthenticated?(<Navigate to = '/login'/>):( user.role !=="admin")?(<Navigate to = '/login'/>) :<OrganizationList/>}/>
+            <Route exact path='/admin/orgs/approved' element={loading?<Loader/> :!isAuthenticated?(<Navigate to = '/login'/>):( user.role !=="admin")?(<Navigate to = '/login'/>) :<ApprovedOrgsList/>}/>
             <Route exact path='/org/register/request' element={loading?<Loader/> :!isAuthenticated?(<Navigate to = '/login'/>):( user.role !=="user")?(<Navigate to = '/login'/>) :<OrgRegistration/>}/>
             <Route exact path='/org/job' element={loading?<Loader/> :!isAuthenticated?(<Navigate to = '/login'/>):( user.role !=="organization")?(<Navigate to = '/login'/>) :<NewJob/>}/>
             <Route exact path='/org/jobs' element={loading?<Loader/> :!isAuthenticated?(<Navigate to = '/login'/>):( user.role !=="organization")?(<Navigate to = '/login'/>) :<JobList/>}/>
@@ -79,10 +83,14 @@ function App() {
             <Route exact path='/job/apply/:id' element={loading? <Loader/> : !isAuthenticated?(<Navigate to = '/login'/>):(user.role !=="user")?(<Navigate to = '/login'/>) : <JobApply/>}/>
 
             <Route exact path='/org/resume/:id' element={loading?<Loader/> :!isAuthenticated?(<Navigate to = '/login'/>):( user.role !=="organization")?(<Navigate to = '/login'/>) :<ApplicantsList/>}/>
-            </Routes>
+            
+          
+           </Routes>
+           
+           
 
 
-        
+           
             <Footer />
         </Router>
    

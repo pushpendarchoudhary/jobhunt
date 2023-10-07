@@ -170,15 +170,34 @@ export const getAdminJobs = () => async (dispatch) => {
       });
     }
   };
-
+  export const getAllresume = ()=> async (dispatch) => {
+    try{
+      dispatch({
+          type: ALL_RESUME_REQUEST,
+      });
+     
+       const {data}  = await axios.get(`/api/v1/resumes`);
+      
+ 
+      dispatch({
+          type: ALL_RESUME_SUCCESS,
+          payload: data,
+      });
+  } catch (error) {
+      dispatch({
+          type: ALL_RESUME_FAIL,
+          payload: error.response.data.message,
+      });
+  }
+  }
   export const getResumes = (id)=> async (dispatch) => {
     try{
         dispatch({
             type: ALL_RESUME_REQUEST,
         });
-
-        const { data }= await axios.get(`/api/v1/resumes/${id}`);
         
+        const {data} = await axios.get(`/api/v1/resumes/${id}`);
+      
         dispatch({
             type: ALL_RESUME_SUCCESS,
             payload: data,

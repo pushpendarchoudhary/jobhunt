@@ -10,47 +10,65 @@ import { UPDATE_PROFILE_RESET } from "../../redux/constants/userconstant";
 import MetaData from "../layout/MetaData";
 import { useNavigate } from "react-router-dom";
 
-const UpdateProfile = ({ history }) => {
+const UpdateProfile = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
 
   const { user } = useSelector((state) => state.user);
   const { error, isUpdated, loading } = useSelector((state) => state.profile);
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [avatar, setAvatar] = useState();
-  const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
+  const [user1, setUser]= useState({
+    name:"",
+    email:"",
+    phone:"",
+    file:null,
+  })
+  const [filePreview, setfilePreview] = useState("/Profile.png");
 
+  const handleChange = (event) => {
+    const {name, value}= event.target;
+    setUser({...user1, [name]: value});
+  }
+
+  const registerDataChange = (e) => {
+    
+    const reader = new FileReader();
+
+    reader.onload=()=>{
+        if(reader.readyState === 2 ){
+            setfilePreview(reader.result);
+            
+        }
+    }
+    reader.readAsDataURL(e.target.files[0]);
+const selectedFile = e.target.files[0];
+if(selectedFile){
+    setUser({...user1, file: selectedFile});
+    
+}
+
+}
   const updateProfileSubmit = (e) => {
     e.preventDefault();
 
     const myForm = new FormData();
-
-    myForm.set("name", name);
-    myForm.set("email", email);
-    myForm.set("avatar", avatar);
+    
+    myForm.append("name", user1.name);
+    myForm.append("email", user1.email);
+    myForm.append("phone", user1.phone);
+    myForm.append("file", user1.file);
+    
     dispatch(updateProfile(myForm));
   };
 
-  const updateProfileDataChange = (e) => {
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setAvatarPreview(reader.result);
-        setAvatar(reader.result);
-      }
-    };
-
-    reader.readAsDataURL(e.target.files[0]);
-  };
+  
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {
-      setName(user.name);
-      setEmail(user.email);
-      setAvatarPreview(user.avatar.url);
+      setUser({name: user.name});
+      setUser({email: user.email});
+      setUser({phone: user.phone});
+      setfilePreview(user.avatar.url);
     }
 
     if (error) {
@@ -92,8 +110,8 @@ const UpdateProfile = ({ history }) => {
                     placeholder="Name"
                     required
                     name="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    value={user1.name}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="updateProfileEmail">
@@ -103,18 +121,30 @@ const UpdateProfile = ({ history }) => {
                     placeholder="Email"
                     required
                     name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={user1.email}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="updateProfileEmail">
+                  <MailOutlineIcon />
+                  <input
+                    type="text"
+                    placeholder="Phone no"
+                    required
+                    name="phone"
+                    value={user1.phone}
+                    onChange={handleChange}
                   />
                 </div>
 
                 <div id="updateProfileImage">
-                  <img src={avatarPreview} alt="Avatar Preview" />
+                  <img src={filePreview} alt="Avatar Preview" />
                   <input
                     type="file"
-                    name="avatar"
+                    name="file"
                     accept="image/*"
-                    onChange={updateProfileDataChange}
+                    onChange={registerDataChange}
                   />
                 </div>
                 <input

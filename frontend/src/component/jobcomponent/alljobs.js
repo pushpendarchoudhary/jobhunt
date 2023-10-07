@@ -1,5 +1,5 @@
 import React, { Fragment , useEffect } from 'react';
-import "./alljobs.js";
+import "./job.css";
 import {useSelector, useDispatch} from "react-redux";
 import {clearErrors, getJob} from "../../redux/actions/jobAction.js";
 import Loader from "../layout/loader/loader.js";
@@ -23,13 +23,16 @@ const AllJobs =()=>{
 
     return (
         <Fragment>
+
             {loading ?<Loader/> : <Fragment>
-           
+           <div className='joblist'>
             {jobs &&
               jobs.map((job) => (
                 <Job key={job._id} job={job} />
               ))}       
                 
+           </div>
+            
             </Fragment>
 
             }

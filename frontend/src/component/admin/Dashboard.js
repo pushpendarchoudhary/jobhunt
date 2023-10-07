@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import Sidebar from "./Sidebar.js";
 import "./dashboard.css";
 import { Typography } from "@material-ui/core";
@@ -8,11 +8,12 @@ import { getAllUsers } from "../../redux/actions/userAction.js";
 import MetaData from "../layout/MetaData.js";
 import { getAdminJobs } from "../../redux/actions/jobAction.js";
 import { getAllOrganizations } from "../../redux/actions/orgactions.js";
+import Loader from "../layout/loader/loader.js";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
 
-  const { jobs } = useSelector((state) => state.jobs);
+  const { loading, jobs } = useSelector((state) => state.jobs);
 
   const { users } = useSelector((state) => state.allUsers);
 
@@ -27,7 +28,8 @@ const Dashboard = () => {
 
 
   return (
-    <div className="dashboard">
+    <Fragment>
+      {loading ? <Loader/>:<div className="dashboard">
       <MetaData title="Dashboard - Admin Panel" />
       <Sidebar />
 
@@ -54,7 +56,9 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div> }
+    </Fragment>
+    
   );
 };
 

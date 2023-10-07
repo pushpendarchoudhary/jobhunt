@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { DataGrid } from "@material-ui/data-grid";
+import { DataGrid, GridCheckIcon } from "@material-ui/data-grid";
 import "../admin/joblist.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -11,7 +11,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { Button } from "@material-ui/core";
 import MetaData from "../layout/MetaData";
-import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Sidebar2 from "../admin/Sidebar2";
 import { DELETE_RESUME_RESET } from "../../redux/constants/jobconstant";
@@ -50,7 +49,7 @@ const ApplicantsList = () => {
 
     if (isDeleted) {
       alert.success("Resume Deleted Successfully");
-      navigate("/org/dashboard");
+      navigate(`/org/resume/${id}`);
       dispatch({ type: DELETE_RESUME_RESET });
     }
 
@@ -100,7 +99,7 @@ const ApplicantsList = () => {
         const isSelected = id=== selectedRow;
         return (
           <Fragment>
-           <Button onClick={()=> handleEdit(id)} style={{ color: isSelected ? 'blue':'black'}}><EditIcon /></Button>
+           <Button onClick={()=> handleEdit(id)} style={{ color: isSelected ? 'blue':'black'}}><GridCheckIcon/></Button>
               
             <Button
               onClick={() =>

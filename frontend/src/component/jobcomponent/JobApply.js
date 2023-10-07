@@ -1,10 +1,11 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, Fragment} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
 import './jobapply.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import {uploadResume, clearErrors} from '../../redux/actions/jobAction';
 import { UPLOAD_RESUME_RESET } from '../../redux/constants/jobconstant';
+import Loader from '../layout/loader/loader';
 
 const UploadResume = () => {
 
@@ -15,7 +16,7 @@ const UploadResume = () => {
     contact: '',
     file: null
   });
-  const { error, success} = useSelector((state)=>state.resumeList);
+  const { loading, error, success} = useSelector((state)=>state.resumeList);
   const dispatch = useDispatch();
   const alert =  useAlert();
   const navigate = useNavigate();
@@ -62,7 +63,9 @@ const UploadResume = () => {
 
   return (
 
-    <form className="jobApplyForm" onSubmit={handleSubmit}>
+    <Fragment>
+      {loading? <Loader/> : <div>
+      <form className="jobApplyForm" onSubmit={handleSubmit}>
       <div>
         <label htmlFor="name">Name:</label>
         <input
@@ -106,6 +109,9 @@ const UploadResume = () => {
       </div>
       <button type="submit">Upload Resume</button>
     </form>
+        </div>}
+    </Fragment>
+    
   );
 };
 

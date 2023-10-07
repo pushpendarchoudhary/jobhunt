@@ -2,6 +2,7 @@ import React from  "react";
 import './home.css';
 import Search from  '../jobcomponent/search';
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Home = ()=>{
     const navigate = useNavigate();
@@ -9,7 +10,7 @@ const Home = ()=>{
         navigate("/org/register/request");
     }
 
-    
+    const {user} = useSelector((state)=>state.user);
    
     return(
         <div>
@@ -26,10 +27,11 @@ const Home = ()=>{
                     <h2 className="homeheading" >Heyy! You are searching for Something </h2>
                     <p className="p1" ><Search /></p>
                     </div>
-                    <div className="">
+                    
+                    { Boolean(user && user.role === "user")?<div className=""> 
                     <h2 className="homeheading" >Register as an Organization </h2>
                     <button onClick={registerRequestToggle} className="btn btn-primary register_button" >Register</button>
-                    </div>
+                    </div>:<div></div>}
                 </div>
             </div>
             </div>

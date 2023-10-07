@@ -16,6 +16,7 @@ import SpellcheckIcon from "@material-ui/icons/Spellcheck";
 import SideBar from "./Sidebar";
 import { UPDATE_JOB_RESET } from "../../redux/constants/jobconstant";
 import { useNavigate, useParams } from "react-router-dom";
+import Loader from "../layout/loader/loader";
 
 const UpdateJob = () => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const UpdateJob = () => {
   const [jobtitle, setJobtitle] = useState("");
   const [department, setDepartment] = useState("");
   const [description, setDescription] = useState("");
-  const [salary, setSalary] = useState(0);
+  const [salary, setSalary] = useState("");
   const [posts, setPosts] = useState("");
   const [image, setImage] = useState([]);
   const [oldimage,setOldimage] = useState([]);
@@ -45,12 +46,12 @@ const UpdateJob = () => {
 
   
 
-  const {jobId}= useParams();
+  const {id}= useParams();
 
   const navigate= useNavigate();
   useEffect(() => {
-    if (jobs && jobs._id !== jobId) {
-      dispatch(getJobDetails(jobId));
+    if (jobs && jobs._id !== id) {
+      dispatch(getJobDetails(id));
     } else {
       setJobtitle(jobs.jobtitle);
       setDescription(jobs.description);
@@ -85,7 +86,7 @@ const UpdateJob = () => {
     error,
     navigate,
     isUpdated,
-    jobId,
+    id,
     jobs,
     updateError,
   ]);
@@ -95,21 +96,21 @@ const UpdateJob = () => {
 
     const myForm = new FormData();
 
-    myForm.set("jobtitle", jobtitle);
-    myForm.set("department", department);
-    myForm.set("description", description);
-    myForm.set("salary", salary);
-    myForm.set("posts", posts);
-    myForm.set("requirements", requirements);
-    myForm.set("responsibilities", responsibilities);
-    myForm.set("benefits", benefits); 
-    myForm.set("apply", apply);
-    myForm.set("pathway", pathway);
+    myForm.append("jobtitle", jobtitle);
+    myForm.append("department", department);
+    myForm.append("description", description);
+    myForm.append("salary", salary);
+    myForm.append("posts", posts);
+    myForm.append("requirements", requirements);
+    myForm.append("responsibilities", responsibilities);
+    myForm.append("benefits", benefits); 
+    myForm.append("apply", apply);
+    myForm.append("pathway", pathway);
 
     image.forEach((image) => {
       myForm.append("image", image);
     });
-    dispatch(updateJob(jobId, myForm));
+    dispatch(updateJob(id, myForm));
   };
 
   const updateJobImagesChange = (e) => {
@@ -135,7 +136,7 @@ const UpdateJob = () => {
 
   return (
     <Fragment>
-      <MetaData title="Update Job" />
+      {loading ? <Loader/>: <div><MetaData title="Update Job" />
       <div className="dashboard"> 
         <SideBar />
         <div className="newJobContainer">
@@ -161,6 +162,7 @@ const UpdateJob = () => {
               <input
                 type="text"
                 placeholder="Department/Field"
+                value={department}
                 required
                 onChange={(e) => setDepartment(e.target.value)}
               />
@@ -183,8 +185,9 @@ const UpdateJob = () => {
             <input
                 type="number"
                 placeholder="Salary /month"
+                value={salary}
                 required
-                onChange={(e) => setSalary(e.target.value)}
+                onChange={(e) => setSalary(e.target.value.toString())}
               />
             </div>
 
@@ -194,6 +197,7 @@ const UpdateJob = () => {
                 type="text"
                 placeholder="posts/positions"
                 required
+                value={posts}
                 onChange={(e) => setPosts(e.target.value)}
               />
             </div>
@@ -289,7 +293,8 @@ const UpdateJob = () => {
             </Button>
           </form>
         </div>
-      </div>
+      </div></div>}
+      
     </Fragment>
   );
 };

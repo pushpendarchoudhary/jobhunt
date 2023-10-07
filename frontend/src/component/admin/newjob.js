@@ -13,6 +13,7 @@ import WorkIcon from '@material-ui/icons/Work';
 import SideBar from "./Sidebar";
 import { NEW_JOB_RESET } from "../../redux/constants/jobconstant";
 import { useNavigate } from "react-router-dom";
+import Loader from "../layout/loader/loader";
 
 const NewJob = () => {
   const dispatch = useDispatch();
@@ -92,7 +93,7 @@ const NewJob = () => {
 
   return (
     <Fragment>
-      <MetaData title="Create JOB" />
+      {loading? <Loader/> : <div><MetaData title="Create JOB" />
       <div className="dashboard">
         <SideBar />
         <div className="newJobContainer">
@@ -238,7 +239,8 @@ const NewJob = () => {
             </Button>
           </form>
         </div>
-      </div>
+      </div></div>}
+      
     </Fragment>
   );
 };

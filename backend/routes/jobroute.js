@@ -1,5 +1,5 @@
 const express = require("express");
-const { getallJobs, createJob ,updateJobs, deleteJobs, getJobDetails,getAdminJobs, UploadResume, getallresume, deleteResume, } = require("../controller/jobcontroller"); //this line imports the getallJobs function from the 'jobcontroller.js' file located in a controller folder in parent directory
+const { getallJobs, createJob ,updateJobs, deleteJobs, getJobDetails,getAdminJobs, UploadResume, getallresume, deleteResume, getresume, } = require("../controller/jobcontroller"); //this line imports the getallJobs function from the 'jobcontroller.js' file located in a controller folder in parent directory
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
 const router = express.Router(); //the router object allows you to define routes and their associated handlers
@@ -10,7 +10,7 @@ router.route("/admin/job/new").post(isAuthenticatedUser, authorizeRoles("admin",
 router.route("/admin/job/:id").put(isAuthenticatedUser, authorizeRoles("admin", "organization"), updateJobs).delete(isAuthenticatedUser,authorizeRoles("admin", "organization"), deleteJobs);
 router.route("/job/:id").get(getJobDetails);
 router.route("/uploadresume").post( isAuthenticatedUser, authorizeRoles("user"), UploadResume);
-router.route("/resumes/:id").get(isAuthenticatedUser, authorizeRoles("admin", "organization"), getallresume).delete(isAuthenticatedUser,authorizeRoles("admin", "organization"), deleteResume);;
-
+router.route("/resumes/:id").get(isAuthenticatedUser, authorizeRoles("admin", "organization"), getresume).delete(isAuthenticatedUser,authorizeRoles("admin", "organization"), deleteResume);;
+router.route("/resumes").get(isAuthenticatedUser, authorizeRoles("admin", "organization"), getallresume);
 
 module.exports = router;

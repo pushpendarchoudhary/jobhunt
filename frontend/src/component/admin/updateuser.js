@@ -28,19 +28,21 @@ const UpdateUser = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
+  const [phone, setPhone] = useState("");
   
 
-  const { userId } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   
 
   useEffect(() => {
-    if (user && user._id !== userId) {
-      dispatch(getUserDetails(userId));
+    if (user && user._id !== id) {
+      dispatch(getUserDetails(id));
     } else if(user) {
       setName( user.name);
       setEmail(user.email);
       setRole(user.role);
+      setPhone(user.phone);
       
     }
     if (error) {
@@ -58,23 +60,24 @@ const UpdateUser = () => {
       navigate("/admin/users");
       dispatch({ type: UPDATE_USER_RESET });
     }
-  }, [dispatch, alert, error, navigate, isUpdated, updateError, user, userId]);
+  }, [dispatch, alert, error, navigate, isUpdated, updateError, user, id]);
 
   const updateUserSubmitHandler = (e) => {
     e.preventDefault();
 
     const myForm = new FormData();
 
-    myForm.set("name", name);
-    myForm.set("email", email);
-    myForm.set("role", role);
+    myForm.append("name", name);
+    myForm.append("email", email);
+    myForm.append("role", role);
+    myForm.append("phone", phone);
   
-    dispatch(updateUser(userId, myForm));
+    dispatch(updateUser(id, myForm));
   };
 
   return (
     <Fragment>
-      <MetaData title="Update User" />
+      {loading ? <Loader/> : <div><MetaData title="Update User" />
       <div className="dashboard">
         <SideBar />
         <div className="newJobContainer">
@@ -92,7 +95,7 @@ const UpdateUser = () => {
                 <input
                   type="text"
                   placeholder="Name"
-                  //required
+                  required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -102,21 +105,21 @@ const UpdateUser = () => {
                 <input
                   type="email"
                   placeholder="Email"
-                  // required
+                  required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              {/* <div>
+              <div>
                 <MailOutlineIcon />
                 <input
                   type="text"
                   placeholder="phone"
-                  // required
+                  required
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
-              </div> */}
+              </div>
 
               <div>
                 <VerifiedUserIcon />
@@ -141,7 +144,8 @@ const UpdateUser = () => {
             </form>
           )}
         </div>
-      </div>
+      </div> </div> }
+      
     </Fragment>
   );
 };
