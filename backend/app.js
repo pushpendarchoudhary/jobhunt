@@ -7,9 +7,9 @@
  //this line creates an instance of the express application and assigns it to the 'app' variable. this "app" object will be used to define routes and handle http requests 
 const errorMiddleware = require("./middleware/error");
 
-// if(process.env.NODE_ENV !== "PRODUCTION"){
-//     require("dotenv").config({path: "backend/config/config.env"})
-// }
+if(process.env.NODE_ENV !== "PRODUCTION"){
+    require("dotenv").config({path: "backend/config/config.env"})
+}
 app.use(express.json({
     limit:'50mb'
 })); 
