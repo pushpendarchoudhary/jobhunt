@@ -5,7 +5,8 @@
   "scripts": {
     "test": "hh",
     "start": "node backend/server.js",
-    "dev": "nodemon backend/server.js"
+    "dev": "nodemon backend/server.js",
+    "heroku-postbuild":"NPM_CONFIG_PRODuCTION = false && npm install -- prefix frontend && npm run built--prefix frontend"
   },
   "author": "",
   "license": "ISC",

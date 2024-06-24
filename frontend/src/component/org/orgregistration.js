@@ -197,8 +197,7 @@ import Loader from "../layout/loader/loader.js";
             </div>
 
             <div>
-              
-
+            <SpellcheckIcon />
               <input
                 type="text"
                 placeholder="Registration Number"
@@ -209,6 +208,7 @@ import Loader from "../layout/loader/loader.js";
 
             <div className="addressDiv">
               <label>Address</label>
+              
             <input
                 type="text"
                 placeholder="street"
@@ -216,6 +216,7 @@ import Loader from "../layout/loader/loader.js";
                 
                 onChange={(e) => setStreet(e.target.value)}
               />
+                
                 <input
                 type="text"
                 placeholder="city"
@@ -223,6 +224,7 @@ import Loader from "../layout/loader/loader.js";
                 
                 onChange={(e) => setCity(e.target.value)}
                 />
+                
               <select  onChange={(e)=> setState(e.target.value)}>
                   <option value="">State</option>
                   {statesAndUTs.map((state, index) => (
@@ -231,6 +233,7 @@ import Loader from "../layout/loader/loader.js";
                   </option>
               ))}
             </select>
+            
             <input
                 type="text"
                 placeholder="Postol code"
@@ -241,18 +244,21 @@ import Loader from "../layout/loader/loader.js";
             </div>
             <div className="addressDiv" >
               <label>Contacts</label>
+              
               <input 
                 type="email"
                 placeholder="Email"
                 required
                 onChange={(e)=> setEmail(e.target.value)}
-                /> 
+                />
+              
               <input 
                 type="text"
                 placeholder="Phone"
                 required
                 onChange={(e)=> setPhone(e.target.value)}
                 />
+                
               <input 
                 type="url"
                 placeholder="Website"
@@ -264,24 +270,28 @@ import Loader from "../layout/loader/loader.js";
 
             <div className="addressDiv">
               <label>Admin</label>
+              
               <input 
                 type="text"
                 placeholder="First Name"
                 required
                 onChange={(e)=> setFirstname(e.target.value)}
                 />
+                
               <input 
                 type="text"
                 placeholder="Last Name"
                 required
                 onChange={(e)=> setLastname(e.target.value)}
                 />
+                
               <input 
                 type="email"
                 placeholder="Email"
                 required
                 onChange={(e)=> setEmail2(e.target.value)}
                 />
+                
               <input 
                 type="text"
                 placeholder="Phone"
@@ -293,6 +303,7 @@ import Loader from "../layout/loader/loader.js";
 
             <div id="createJobFormFile">
               <label>Images</label>
+              
               <input
                 type="file"
                 name="avatar"

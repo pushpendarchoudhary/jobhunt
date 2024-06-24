@@ -31,7 +31,7 @@ import Dashboard2 from './component/admin/Dashboard2';
 import JobApply from './component/jobcomponent/JobApply';
 import ApplicantsList from './component/org/applicantslist';
 import ApprovedOrgsList from './component/admin/approvedorg';
-import NotFound from './component/layout/NotFound';
+// import NotFound from './component/layout/NotFound';
 
 
 
@@ -42,19 +42,13 @@ function App() {
   const {isAuthenticated, user, loading} = useSelector((state)=>state.user);
 
   useEffect(()=>{
-    
       store.dispatch(loadUser());
-    
   },[]);
-  
-  
 
   return (<Router>
             {isAuthenticated && <UserOptions user={user} />}
             <Navbar/>
-           
-            
-           <Routes>
+            <Routes>
             <Route exact path='/' Component={Home} />
             <Route exact path='/job/:id' Component={JobDetails} />
             <Route exact path='/login' Component={ Login } />
@@ -81,16 +75,8 @@ function App() {
             <Route exact path='/org/jobs' element={loading?<Loader/> :!isAuthenticated?(<Navigate to = '/login'/>):( user.role !=="organization")?(<Navigate to = '/login'/>) :<JobList/>}/>
             <Route exact path='/org/job/:id' element={loading?<Loader/> :!isAuthenticated?(<Navigate to = '/login'/>):( user.role !=="organization")?(<Navigate to = '/login'/>) :<UpdateJob/>}/>
             <Route exact path='/job/apply/:id' element={loading? <Loader/> : !isAuthenticated?(<Navigate to = '/login'/>):(user.role !=="user")?(<Navigate to = '/login'/>) : <JobApply/>}/>
-
             <Route exact path='/org/resume/:id' element={loading?<Loader/> :!isAuthenticated?(<Navigate to = '/login'/>):( user.role !=="organization")?(<Navigate to = '/login'/>) :<ApplicantsList/>}/>
-            
-          
-           </Routes>
-           
-           
-
-
-           
+            </Routes>
             <Footer />
         </Router>
    

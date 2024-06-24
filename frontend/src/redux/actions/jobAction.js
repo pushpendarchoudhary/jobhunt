@@ -177,7 +177,6 @@ export const getAdminJobs = () => async (dispatch) => {
       });
      
        const {data}  = await axios.get(`/api/v1/resumes`);
-      
  
       dispatch({
           type: ALL_RESUME_SUCCESS,

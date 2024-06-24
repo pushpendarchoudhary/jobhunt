@@ -11,7 +11,7 @@ const {singleUpload} = require("../middleware/multer");
 
 
 // register a user
-exports.registerUser = [singleUpload, catchAsyncErrors(async(req,res,next)=>{
+exports.registerUser =[singleUpload, catchAsyncErrors(async(req,res,next)=>{
     const file = req.file;
     if(!file){
         return res.status(400).json({message:"no file uploaded"})

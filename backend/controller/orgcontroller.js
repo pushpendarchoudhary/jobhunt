@@ -115,3 +115,15 @@ exports.deleteOrganization = catchAsyncErrors(async(req, res, next)=>{
           message:"Organization deleted successfully"
       }); 
   });
+// get job details
+exports.getOrgDetail = catchAsyncErrors(async(req,res, next)=>{
+  const organization = await Organization.findById(req.params.id);
+  if(!organization){
+    return next(new Errorhandler("job not found", 404));
+  }
+  res.status(200).json({
+    success:true,
+    organization
+  })
+})
+

@@ -1,10 +1,10 @@
 const express = require("express");
 const {isAuthenticatedUser, authorizeRoles} = require("../middleware/auth");
-const { orgRegister, updateOrgDetails, getOrgDetailsForAdmin, getAllOrganization, deleteOrganization } = require("../controller/orgcontroller");
+const { orgRegister, updateOrgDetails, getOrgDetailsForAdmin, getAllOrganization, deleteOrganization, getOrgDetail } = require("../controller/orgcontroller");
 const router = express.Router();
 const roles = ["admin","organization"];
 router.route("/org/register").post(isAuthenticatedUser, orgRegister);
 router.route("/org/all").get(isAuthenticatedUser, authorizeRoles("admin"), getAllOrganization);
 router.route("/org/:id").get(isAuthenticatedUser, authorizeRoles(...roles) , getOrgDetailsForAdmin);
-router.route("/org/:id").put(isAuthenticatedUser, authorizeRoles("organization"), updateOrgDetails ).delete(isAuthenticatedUser,authorizeRoles("admin"),deleteOrganization);
+router.route("/org/:id").put(isAuthenticatedUser, authorizeRoles("organization"), updateOrgDetails ).delete(isAuthenticatedUser,authorizeRoles("admin"),deleteOrganization).get(isAuthenticatedUser, authorizeRoles("organization","admin"),getOrgDetail);
 module.exports = router;
