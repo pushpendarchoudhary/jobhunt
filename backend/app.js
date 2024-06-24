@@ -27,12 +27,12 @@ const organization = require("./routes/orgroutes");
 app.use("/api/v1",jobs); //this line mounts the job router at the "/api/v1" path . Any requests that match this path , such as "/api/v1/jobs" or "/api/v1/jobs/123", will be passed to the job router for further handling
 app.use("/api/v1",user);
 app.use("/api/v1",organization);
-app.use(errorMiddleware); 
-// app.use(express.static(path.join(__dirname, "../frontend/build")));
-// app.get("*", (req, res)=> {
-//     res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
-// })
+
+app.use(express.static(path.join(__dirname, "../frontend/build")));
+app.get("*", (req, res)=> {
+    res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
+})
 //middleware for error 
-app.use(errorMiddleware);
+app.use(errorMiddleware); 
 
 module.exports = app;// exports the "app" object available to other modules that require or import this module

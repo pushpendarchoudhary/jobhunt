@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import './navbar.css';
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Navbar =()=>{
@@ -22,14 +23,13 @@ const Navbar =()=>{
               <span className="bar"></span>
           </div>
       <ul className={`nav no-search ${isMenuActive?'is-active':''}`}>
-        <li className="nav-item"><a href="http://localhost:3000/">Home</a></li>
-        <li className="nav-item"><a href="#">About</a></li>
-        <li className="nav-item"><a href="http://localhost:3000/jobss">AllJobs</a></li>
-        {isAuthenticated? 
-            <li className="nav-item"></li> : 
-            <li className="nav-item"><a href="http://localhost:3000/login">Login/Signup</a></li>
-        }
-        
+      <li className="nav-item"><Link to="/">Home</Link></li>
+            <li className="nav-item"><Link to="/about">About</Link></li>
+            <li className="nav-item"><Link to="/jobss">AllJobs</Link></li>
+            {isAuthenticated ?
+              <li className="nav-item"></li> :
+              <li className="nav-item"><Link to="/login">Login/Signup</Link></li>
+            }
         
       </ul>
     </nav>
